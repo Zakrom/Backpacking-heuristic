@@ -1,0 +1,12 @@
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\bin\Debug\MochilaSemiGreedy.exe.config
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\bin\Debug\MochilaSemiGreedy.exe
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\bin\Debug\MochilaSemiGreedy.pdb
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.csprojResolveAssemblyReference.cache
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.Form1.resources
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.Properties.Resources.resources
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.csproj.GenerateResource.Cache
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.exe
+c:\users\edgar valdes\documents\visual studio 2015\Projects\MochilaSemiGreedy\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.pdb
+C:\Users\Edgar Valdes\Documents\GitHub\Backpacking-heuristic\MochilaSemiGreedy\bin\Debug\MochilaSemiGreedy.exe.config
+C:\Users\Edgar Valdes\Documents\GitHub\Backpacking-heuristic\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.exe
+C:\Users\Edgar Valdes\Documents\GitHub\Backpacking-heuristic\MochilaSemiGreedy\obj\Debug\MochilaSemiGreedy.pdb
