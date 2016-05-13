@@ -39,10 +39,10 @@
             this.btnAddReg = new System.Windows.Forms.Button();
             this.btnGenSol = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Objeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Peso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cociente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
@@ -97,7 +97,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(114, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Numero de Iteraciones";
+            this.label5.Text = "Numero de Soluciones";
             // 
             // txtNumSol
             // 
@@ -118,7 +118,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(146, 262);
+            this.progressBar1.Location = new System.Drawing.Point(148, 262);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(446, 20);
             this.progressBar1.TabIndex = 11;
@@ -127,14 +127,14 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(15, 37);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(117, 20);
+            this.textBox1.Size = new System.Drawing.Size(186, 20);
             this.textBox1.TabIndex = 12;
             // 
             // btnAddReg
             // 
             this.btnAddReg.Location = new System.Drawing.Point(12, 167);
             this.btnAddReg.Name = "btnAddReg";
-            this.btnAddReg.Size = new System.Drawing.Size(109, 23);
+            this.btnAddReg.Size = new System.Drawing.Size(189, 23);
             this.btnAddReg.TabIndex = 17;
             this.btnAddReg.Text = "Agregar Elemento";
             this.btnAddReg.UseVisualStyleBackColor = true;
@@ -153,60 +153,76 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.num,
             this.Objeto,
             this.Peso,
-            this.Valor});
-            this.dataGridView1.Location = new System.Drawing.Point(146, 21);
+            this.Valor,
+            this.cociente});
+            this.dataGridView1.Location = new System.Drawing.Point(250, 12);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(446, 235);
+            this.dataGridView1.Size = new System.Drawing.Size(344, 235);
             this.dataGridView1.TabIndex = 16;
-            // 
-            // num
-            // 
-            this.num.HeaderText = "#";
-            this.num.Name = "num";
-            this.num.ReadOnly = true;
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Sort);
+            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.Sort);
             // 
             // Objeto
             // 
             this.Objeto.HeaderText = "Objeto";
             this.Objeto.Name = "Objeto";
-            this.Objeto.ReadOnly = true;
+            this.Objeto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Peso
             // 
             this.Peso.HeaderText = "Peso";
             this.Peso.Name = "Peso";
-            this.Peso.ReadOnly = true;
+            this.Peso.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Valor
             // 
             this.Valor.HeaderText = "Valor";
             this.Valor.Name = "Valor";
-            this.Valor.ReadOnly = true;
+            this.Valor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // cociente
+            // 
+            this.cociente.HeaderText = "Cociente";
+            this.cociente.Name = "cociente";
+            this.cociente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.cociente.Visible = false;
             // 
             // numericUpDown2
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(12, 88);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown2.Size = new System.Drawing.Size(189, 20);
             this.numericUpDown2.TabIndex = 21;
             // 
             // numericUpDown3
             // 
             this.numericUpDown3.Location = new System.Drawing.Point(12, 141);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown3.Size = new System.Drawing.Size(189, 20);
             this.numericUpDown3.TabIndex = 23;
             // 
             // numericUpDown4
             // 
             this.numericUpDown4.Location = new System.Drawing.Point(273, 296);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(83, 20);
             this.numericUpDown4.TabIndex = 25;
@@ -255,13 +271,13 @@
         private System.Windows.Forms.Button btnAddReg;
         private System.Windows.Forms.Button btnGenSol;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn num;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Objeto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Peso;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Objeto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Peso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cociente;
     }
 }
 
