@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Collections;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,10 +14,23 @@ namespace MochilaSemiGreedy
 {
     public partial class Form1 : Form
     {
-        
-        int n = 0;
+        Dictionary<string, double> dicPeso =
+        new Dictionary<string, double>();
+
+        Dictionary<string, double> dicValor =
+        new Dictionary<string, double>();
+
+        OrderedDictionary ODKeys =
+        new OrderedDictionary();
+
+        ArrayList AlRemover = new ArrayList(); 
+        ArrayList AlSolucion = new ArrayList();
+        ArrayList AlSolucionActual = new ArrayList();
+
+
         //rnd1 sirve para generar numeros aleatorios
-        Random rnd1 = new Random();
+        Random rnd = new Random();
+        double mejorValor= 0;
 
 
         public Form1()
@@ -35,71 +50,124 @@ namespace MochilaSemiGreedy
 
         private void generar_Registro(object sender, EventArgs e)
         {
-            this.dataGridView1.Rows.Add(this.textBox1.Text, Convert.ToInt32(this.numericUpDown2.Text), Convert.ToInt32(this.numericUpDown3.Text), Convert.ToDouble(this.numericUpDown2.Text)/Convert.ToDouble(this.numericUpDown3.Text));
-            
-            n++;
+            dataGridView1.Rows.Add(textBox1.Text, Convert.ToInt32(numericUpDown2.Text), Convert.ToInt32(numericUpDown3.Text), Convert.ToDouble(numericUpDown3.Text)/Convert.ToDouble(numericUpDown2.Text) );
+            textBox1.Text = "";
+            numericUpDown2.Value = 0;
+            numericUpDown3.Value = 0;
         }
         //----------------------------------------------------------------------------------
 
         //Reordena cuando se agrega una fila de mayor a menor con cociente(campo no visible)
+        //al hacer esto se evaluan los elementos ordenandolos dle mejor al peor
+
         private void Sort(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            this.dataGridView1.Sort(this.cociente, ListSortDirection.Descending);
+            dataGridView1.Sort(cociente, ListSortDirection.Descending);
         }
-        
+
         //-----------------------------------------------------------------------------------
         //Esta funcion Reordena cuando se modifica un campo de la misma manera
 
-        private void ReSort(object sender, DataGridViewCellEventArgs e)
-        {
-            this.dataGridView1.Sort(this.cociente, ListSortDirection.Descending);
-        }
+       
 
         //-----------------------------------------------------------------------------------
         // se activa al presionar el boton que generara las soluciones
         private void generar_Soluciones(object sender, EventArgs e)
         {
-             
-            for(int nSolucion = 1; nSolucion <= this.txtNumSol.Value; nSolucion++)
+            AlSolucion.Clear();
+            for (int i = 0; i < txtNumSol.Value; i++)
             {
                 generar_Solucion();
-            } 
+
+            }
+
+            string conclusion = "Elementos:{";
+
+            foreach(object cebollin in AlSolucion)
+                {
+                conclusion = conclusion + Convert.ToString(cebollin)+","; 
+            }
+            
+            conclusion.Trim(','); 
+
+            conclusion += "} \n Con un valor de: ";
+            conclusion += Convert.ToString(mejorValor);
+            MessageBox.Show(conclusion);
         }
         //------------------------------------------------------------------------------------
         //funcion para crear de una solucion en una
         public void generar_Solucion()
         {
-            int cupo = Convert.ToInt32(this.numericUpDown4.Value);
-            DataTable dt = new DataTable();
+            double cupo = Convert.ToInt32(this.numericUpDown4.Value);
 
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
-            {
-                dt.Columns.Add(col.HeaderText);
+            //Creo un diccionario donde se asocia peso y valor de los objetos a estos 
+            
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            { 
+                dicPeso.Add(Convert.ToString(row.Cells[0].Value) ,Convert.ToDouble(row.Cells[1].Value));
+                dicValor.Add(Convert.ToString(row.Cells[0].Value), Convert.ToDouble(row.Cells[2].Value));
+
+                //Este diccionario ordenado permitiara escoger un elemento aleatoriamente mas adelante
+                ODKeys.Add(row.Cells[0].Value, row.Cells[0].Value);
+                
             }
 
-
-            DataTable dtSolucion = dt.Clone();
-
-
-            foreach (DataRow row in dt.Rows)
+            double valorActual = 0 ;
+            while (dicPeso.Count > 0)
             {
-
-                float peso = Convert.ToInt32(row["Peso"]);
-                float valor = Convert.ToInt32(row["Valor"]);
-                if (peso > cupo)
+                //Agrego a una lista los elementos que se borraran 
+                foreach (KeyValuePair<string, double> pair in dicPeso)
                 {
-                    row.Delete();
+                    if (pair.Value > cupo)
+                    {
+                        AlRemover.Add(pair.Key);
+                    }
+                }
+
+                //dichos elementos son removidos
+                foreach (object alElement in AlRemover)
+                { 
+                    dicPeso.Remove(Convert.ToString(alElement));
+                    ODKeys.Remove(alElement);
+                }
+
+                //se elimina el contenido de esta lista para futuro uso
+                AlRemover.Clear();
+
+
+                if (dicPeso.Count != 0)
+                {
+                    //Se genera numero aleatorio "picker"
+                    int picker = rnd.Next((Convert.ToInt32(Math.Sqrt(dicPeso.Count))));
+
+                    //En este caso se uso raiz cuadrada para agregar un elemento a la solucion
+                    string elementToAdd = Convert.ToString(ODKeys[picker]);
+
+                    //Se agrega a la solucion, y actualiza peso restante al igual que valor resultante
+                    AlSolucionActual.Add(elementToAdd);
+                    cupo -= dicPeso[elementToAdd];
+                    valorActual += dicValor[elementToAdd];
+
+                    dicPeso.Remove(elementToAdd);
+                    ODKeys.Remove(elementToAdd);
+
                 }
             }
-            int count = dt.Rows.Count;
-            int rnd = rnd1.Next(1, count);
-            dtSolucion.ImportRow(dt.Rows[rnd]); 
+            //Se compara con el mejor valor anterior y se sutituye
+            if (valorActual > mejorValor)
+            {
+                mejorValor = valorActual;
+                foreach (object alElement in AlSolucionActual)
+                {
+                    AlSolucion.Add(alElement);
+                }
+            }
+            dicValor.Clear();
+            AlSolucionActual.Clear();
 
-
-
+            return;  
         }
-
-       
+         
         //-------------------------------------------------------------------------------------
 
 
@@ -118,8 +186,8 @@ generar n soluciones*
     {
     generar 1 solucion
         {
-        evaluar elementos
-        seleccionar candidatos
+        evaluar elementos*
+        seleccionar candidatos*
         agregar elemento a solucion
         checar si solucion esta completa
         }

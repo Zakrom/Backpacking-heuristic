@@ -39,13 +39,13 @@
             this.btnAddReg = new System.Windows.Forms.Button();
             this.btnGenSol = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.Objeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Peso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cociente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.txtNumSol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -163,33 +163,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(344, 235);
             this.dataGridView1.TabIndex = 16;
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Sort);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.Sort);
-            // 
-            // Objeto
-            // 
-            this.Objeto.HeaderText = "Objeto";
-            this.Objeto.Name = "Objeto";
-            this.Objeto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Peso
-            // 
-            this.Peso.HeaderText = "Peso";
-            this.Peso.Name = "Peso";
-            this.Peso.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // Valor
-            // 
-            this.Valor.HeaderText = "Valor";
-            this.Valor.Name = "Valor";
-            this.Valor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // cociente
-            // 
-            this.cociente.HeaderText = "Cociente";
-            this.cociente.Name = "cociente";
-            this.cociente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.cociente.Visible = false;
             // 
             // numericUpDown2
             // 
@@ -227,11 +201,36 @@
             this.numericUpDown4.Size = new System.Drawing.Size(83, 20);
             this.numericUpDown4.TabIndex = 25;
             // 
+            // Objeto
+            // 
+            this.Objeto.HeaderText = "Objeto";
+            this.Objeto.Name = "Objeto";
+            this.Objeto.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Peso
+            // 
+            this.Peso.HeaderText = "Peso";
+            this.Peso.Name = "Peso";
+            this.Peso.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Valor
+            // 
+            this.Valor.HeaderText = "Valor";
+            this.Valor.Name = "Valor";
+            this.Valor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // cociente
+            // 
+            this.cociente.HeaderText = "Cociente";
+            this.cociente.Name = "cociente";
+            this.cociente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.cociente.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(606, 358);
+            this.ClientSize = new System.Drawing.Size(604, 358);
             this.Controls.Add(this.numericUpDown4);
             this.Controls.Add(this.numericUpDown3);
             this.Controls.Add(this.numericUpDown2);
