@@ -14,6 +14,8 @@ namespace MochilaSemiGreedy
 {
     public partial class Form1 : Form
     {
+
+        
         Dictionary<string, double> dicPeso =
         new Dictionary<string, double>();
 
