@@ -24,7 +24,7 @@ namespace MochilaSemiGreedy
 
         OrderedDictionary ODKeys =
         new OrderedDictionary();
-
+         
         ArrayList AlRemover = new ArrayList(); 
         ArrayList AlSolucion = new ArrayList();
         ArrayList AlSolucionActual = new ArrayList();
@@ -33,7 +33,7 @@ namespace MochilaSemiGreedy
         //rnd1 sirve para generar numeros aleatorios
         Random rnd = new Random();
         double mejorValor= 0;
-
+        double cupo;
 
         public Form1()
         {
@@ -76,7 +76,10 @@ namespace MochilaSemiGreedy
         // se activa al presionar el boton que generara las soluciones
         private void generar_Soluciones(object sender, EventArgs e)
         {
+            dataGridView1.Sort(cociente, ListSortDirection.Descending);
             AlSolucion.Clear();
+            mejorValor = 0;
+
             for (int i = 0; i < txtNumSol.Value; i++)
             {
                 generar_Solucion();
@@ -94,13 +97,17 @@ namespace MochilaSemiGreedy
 
             conclusion += "} \n Con un valor de: ";
             conclusion += Convert.ToString(mejorValor);
+            //conclusion += "\n Con un peso de: ";
+            //conclusion += Convert.ToString(Convert.ToInt32(numericUpDown4.Value)-cupo);
             MessageBox.Show(conclusion);
+            AlSolucion.Clear();
+            mejorValor = 0;
         }
         //------------------------------------------------------------------------------------
         //funcion para crear de una solucion en una
         public void generar_Solucion()
         {
-            double cupo = Convert.ToInt32(this.numericUpDown4.Value);
+            cupo = Convert.ToInt32(this.numericUpDown4.Value);
 
             //Creo un diccionario donde se asocia peso y valor de los objetos a estos 
             
@@ -115,6 +122,7 @@ namespace MochilaSemiGreedy
             }
 
             double valorActual = 0 ;
+
             while (dicPeso.Count > 0)
             {
                 //Agrego a una lista los elementos que se borraran 
@@ -130,6 +138,7 @@ namespace MochilaSemiGreedy
                 foreach (object alElement in AlRemover)
                 { 
                     dicPeso.Remove(Convert.ToString(alElement));
+                    dicValor.Remove(Convert.ToString(alElement));
                     ODKeys.Remove(alElement);
                 }
 
@@ -140,7 +149,7 @@ namespace MochilaSemiGreedy
                 if (dicPeso.Count != 0)
                 {
                     //Se genera numero aleatorio "picker"
-                    int picker = rnd.Next((Convert.ToInt32(Math.Sqrt(dicPeso.Count))));
+                    int picker = rnd.Next((Convert.ToInt32(dicPeso.Count*(numericUpDown1.Value/100))));
 
                     //En este caso se uso raiz cuadrada para agregar un elemento a la solucion
                     string elementToAdd = Convert.ToString(ODKeys[picker]);
@@ -150,26 +159,39 @@ namespace MochilaSemiGreedy
                     cupo -= dicPeso[elementToAdd];
                     valorActual += dicValor[elementToAdd];
 
+                    dicValor.Remove(elementToAdd);
                     dicPeso.Remove(elementToAdd);
                     ODKeys.Remove(elementToAdd);
 
                 }
             }
+
             //Se compara con el mejor valor anterior y se sutituye
             if (valorActual > mejorValor)
             {
+
                 mejorValor = valorActual;
+                AlSolucion.Clear();
                 foreach (object alElement in AlSolucionActual)
                 {
                     AlSolucion.Add(alElement);
                 }
             }
-            dicValor.Clear();
             AlSolucionActual.Clear();
 
             return;  
         }
-         
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReiniciar_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+        }
+
         //-------------------------------------------------------------------------------------
 
 
